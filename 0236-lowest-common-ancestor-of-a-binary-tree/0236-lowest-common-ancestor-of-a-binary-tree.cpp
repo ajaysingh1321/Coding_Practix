@@ -41,8 +41,8 @@ public:
         }
 
         // The lowest common ancestor is the node at index i-1 in pathP or pathQ
-        if (i > 0 && i <= pathP.size()) {
-            int lcaValue = pathP[i - 1];
+        if (i > 0 && i <= pathQ.size()) {
+            int lcaValue = pathQ[i - 1];
             TreeNode* lca = new TreeNode(lcaValue);
             return lca;
         }
