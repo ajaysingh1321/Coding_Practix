@@ -1,54 +1,26 @@
 class Solution {
 public:
-    void bfs(int node,vector<int>adj[],vector<int>&vis)
-    {
-
-        queue<int>q;
-        q.push(node);
+   void dfs(int node,vector<int>&vis,vector<vector<int>>& isConnected) {
         vis[node] = 1;
-
-        while(!q.empty())
-        {
-            int nodeval = q.front();
-            q.pop();
-            for(auto x:adj[nodeval])
-            {
-                if(vis[x]==0)
-                {
-                    vis[x] = 1;
-                    q.push(x);
-                }
+        for(int i = 0; i<isConnected.size(); i++){
+            if(isConnected[node][i]==1 && !vis[i]){
+                dfs(i,vis,isConnected);
             }
         }
+
     }
-    int findCircleNum(vector<vector<int>>& isConnected) 
-    {
+    int findCircleNum(vector<vector<int>>& isConnected) {
         int n = isConnected.size();
-
-        vector<int>adj[n];
         vector<int>vis(n,0);
-        //convert into adjacency list
-        for(int i=0;i<n;i++)
-        {
-            for(int j=0;j<n;j++)
-            {
-                if(isConnected[i][j] == 1 && i!=j)
-                {
-                    adj[i].push_back(j);
-                    adj[j].push_back(i);                
-                }
-            }
-        }  
+        int count = 0;
 
-        int cnt=0;
-        for(int i=0;i<n;i++)
-        {
-            if(vis[i]==0)
-            {
-                cnt++;
-                bfs(i,adj,vis);
+        for(int i  = 0; i< n; i++){
+            if(!vis[i]){
+                count++;
+                dfs(i,vis,isConnected);
             }
         }
-        return cnt;
+
+        return count;
     }
 };
